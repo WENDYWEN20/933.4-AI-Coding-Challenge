@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Flashcards App</title>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<p id="app-status" class="visually-hidden" aria-live="polite"></p>
+	<div class="app-shell">
+		<header class="app-header">
+			<h1>Flashcards</h1>
+			<button id="new-deck-btn" class="primary-btn" type="button">New Deck</button>
+		</header>
+
+		<aside class="sidebar" aria-label="Decks">
+			<div class="sidebar-head">
+				<h2>Decks</h2>
+				<div class="deck-actions">
+					<button id="edit-deck-btn" class="secondary-btn" type="button">Edit Name</button>
+					<button id="delete-deck-btn" class="danger-btn" type="button">Delete</button>
+				</div>
+			</div>
+			<nav>
+				<ul id="deck-list" class="deck-list"></ul>
+				<div id="deck-empty-state" class="empty-state" role="status" aria-live="polite" hidden>
+					<p class="empty-icon" aria-hidden="true">🗂</p>
+					<p class="empty-title">No decks yet</p>
+					<p class="empty-text">Create a new deck to start adding flashcards.</p>
+				</div>
+			</nav>
+		</aside>
+
+		<main class="main-content" aria-label="Cards">
+			<section class="deck-workspace" aria-live="polite">
+				<h2 id="deck-title" class="deck-title">HTML Basics</h2>
+
+				<div class="deck-toolbar" aria-label="Deck actions">
+					<label class="search-wrap" for="search-cards">
+						<span class="visually-hidden">Search cards</span>
+						<input id="search-cards" type="search" placeholder="Search cards" />
+					</label>
+					<p id="search-count" class="search-count" aria-live="polite">All cards</p>
+					<button id="shuffle-btn" class="secondary-btn" type="button">Shuffle</button>
+					<button id="new-card-btn" class="primary-btn" type="button">New Card</button>
+					<button id="edit-card-btn" class="secondary-btn" type="button">Edit Card</button>
+					<button id="delete-card-btn" class="danger-btn" type="button">Delete Card</button>
+				</div>
+
+				<article class="flashcard" tabindex="0" aria-label="Current flashcard">
+					<div id="card-inner" class="card-inner" aria-live="polite">
+						<section class="card-face card-front" aria-label="Card front">
+							<h3>Front</h3>
+							<p id="card-front-content">What does HTML stand for?</p>
+						</section>
+						<section class="card-face card-back" aria-label="Card back">
+							<h3>Back</h3>
+							<p id="card-back-content">HyperText Markup Language</p>
+						</section>
+					</div>
+				</article>
+
+				<div id="card-empty-state" class="empty-state" role="status" aria-live="polite" hidden>
+					<p class="empty-icon" aria-hidden="true">🔎</p>
+					<p id="card-empty-title" class="empty-title">No cards found</p>
+					<p id="card-empty-text" class="empty-text">Try a different search, or add a new card to this deck.</p>
+				</div>
+
+				<ul id="card-list" class="card-list" aria-label="Card list preview"></ul>
+
+				<div class="card-controls" aria-label="Card controls">
+					<button id="prev-card-btn" class="secondary-btn" type="button">Prev</button>
+					<button id="flip-card-btn" class="secondary-btn" type="button">Flip</button>
+					<button id="next-card-btn" class="secondary-btn" type="button">Next</button>
+				</div>
+			</section>
+		</main>
+
+		<footer class="app-footer">
+			<p>Use arrow controls to navigate cards and Flip to reveal the answer.</p>
+		</footer>
+	</div>
+
+	<div id="deck-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="deck-modal-title" aria-hidden="true">
+		<div class="modal-backdrop" data-close-modal="true"></div>
+		<div class="modal-dialog" role="document">
+			<h2 id="deck-modal-title">New Deck</h2>
+			<form id="deck-form" class="modal-form">
+				<label for="deck-name-input">Deck name</label>
+				<input id="deck-name-input" name="deckName" type="text" required maxlength="60" autocomplete="off" aria-describedby="deck-name-error" />
+				<p id="deck-name-error" class="field-error" role="alert" hidden></p>
+				<div class="modal-actions">
+					<button id="deck-cancel-btn" class="secondary-btn" type="button">Cancel</button>
+					<button id="deck-save-btn" class="primary-btn" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="card-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title" aria-hidden="true">
+		<div class="modal-backdrop" data-close-modal="true"></div>
+		<div class="modal-dialog" role="document">
+			<h2 id="card-modal-title">New Card</h2>
+			<form id="card-form" class="modal-form">
+				<label for="card-front-input">Front</label>
+				<input id="card-front-input" name="cardFront" type="text" required maxlength="160" autocomplete="off" aria-describedby="card-front-error" />
+				<p id="card-front-error" class="field-error" role="alert" hidden></p>
+				<label for="card-back-input">Back</label>
+				<input id="card-back-input" name="cardBack" type="text" required maxlength="240" autocomplete="off" aria-describedby="card-back-error" />
+				<p id="card-back-error" class="field-error" role="alert" hidden></p>
+				<div class="modal-actions">
+					<button id="card-cancel-btn" class="secondary-btn" type="button">Cancel</button>
+					<button id="card-save-btn" class="primary-btn" type="submit">Save Card</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="storage.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
